@@ -1,0 +1,172 @@
+:root{--accent:#0ea5a4;--muted:#6b7280;--bg:#f8fafc;--card:#ffffff}
+*{box-sizing:border-box}
+body{font-family:Inter,ui-sans-serif,system-ui,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:#0f172a}
+header{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;padding:24px}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:56px;height:56px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700}
+h1{margin:0;font-size:20px}
+p.lead{margin:6px 0 0;opacity:0.95}
+
+/* layout */
+.top{display:flex;gap:20px;align-items:center;justify-content:space-between}
+.search{flex:1;margin-left:20px}
+.search input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.06)}
+
+main{padding:24px 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.top{flex-direction:column;align-items:flex-start}.grid{grid-template-columns:1fr}}
+
+.card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(2,6,23,0.06);display:flex;flex-direction:column;gap:12px}
+.img{height:160px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(14,165,164,0.06),rgba(6,182,212,0.04));}
+.meta{display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:700;color:var(--accent)}
+.btn{appearance:none;border:0;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(14,165,164,0.14)}
+
+/* cart */
+.cart{position:fixed;right:20px;bottom:20px;width:320px;max-width:94%;z-index:60}
+.cart .panel{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 10px 30px rgba(2,6,23,0.12)}
+.cart h3{margin:0 0 8px}
+.cart-list{max-height:260px;overflow:auto}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(15,23,42,0.04)}
+.cart-item:last-child{border-bottom:0}
+.qty{display:flex;gap:6px;align-items:center}
+.small{font-size:13px;color:var(--muted)}
+
+footer{padding:24px 0;color:var(--muted)}
+
+/* order modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.4);display:none;align-items:center;justify-content:center;z-index: 100;}
+.modal{background:var(--card);padding:20px;border-radius:12px;max-width:520px;width:94%}
+label{display:block;margin-top:10px;font-size:14px}
+input[type="text"],input[type="tel"],input[type="email"],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06)}
+
+.logo img{
+    width: 80px;
+    margin-left: -20px;
+    border-radius: 50px;
+}
+
+.img {
+    background-image: url(images/galon.jpg);
+    background-position: center;
+    width: 120px;
+    height: 100px;
+    margin-left: 80px;
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
+.kelompok1 {
+    position: relative;
+    min-height: 20vh;
+    background: #ddd;
+}
+
+.kelompok1 h1 {
+    font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
+    padding: 15px;
+    color: rgb(1, 85, 121);
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.kelompok1 .kelompok-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+}
+
+.kelompok1 .kelompok-container .gambar {
+    width: 350px;
+    height: 250px;
+    border: 10px solid #fff;
+    box-shadow: 0 5px 15px rgb(0, 0, 0,0.1);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.kelompok1 .kelompok-container .gambar img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: .2s linear;
+}
+
+.kelompok1 .kelompok-container .gambar:hover img {
+    transform: scale(1.1);
+}
+
+.kelompok1 .popup-image {
+    position: fixed;
+    top: 0; left: 0;
+    background: rgba(0,0,0,0.9);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    display: none;
+}
+
+.kelompok1 .popup-image span {
+    position: absolute;
+    top: 0; right: 10px;
+    font-size: 60px;
+    font-weight: bolder;
+    color: #fff;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.kelompok1 .popup-image img {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    width: 750px;
+    object-fit: cover;
+}
+
+@media (max-width:768px){
+    .kelompok1 .popup-image img {
+        width: 95%;
+    }
+}
+
+.maps-container {
+    max-width: 10000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px #efef;
+    border-radius: 10px;
+}
+
+.maps-container h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.lokasi {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}

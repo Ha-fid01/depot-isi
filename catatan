@@ -1,0 +1,85 @@
+document.getElementById('submitOrder').addEventListener('click', (e)=>{
+    e.preventDefault();
+  
+    const nama = document.getElementById('nama').value.trim();
+    const alamat = document.getElementById('phoneInput').value.trim();
+    const cartData = JSON.parse(localStorage.getItem('ecogalon_cart') || '[]');
+  
+    if(cartData.length === 0){
+      alert('Keranjang masih kosong.');
+      return;
+    }
+  
+    // hitung total harga
+    let totalHarga = 0;
+    cartData.forEach(item => {
+      totalHarga += item.price * item.qty;
+    });
+  
+    // buat data pesanan
+    const pesanan = {
+      nama,
+      alamat,
+      items: cartData,
+      totalHarga,
+      waktu: new Date().toLocaleString('id-ID')
+    };
+  
+    // ambil data lama lalu tambahkan pesanan baru
+    const allOrders = JSON.parse(localStorage.getItem('ecogalon_orders') || '[]');
+    allOrders.push(pesanan);
+    localStorage.setItem('ecogalon_orders', JSON.stringify(allOrders));
+  
+    // kosongkan keranjang
+    localStorage.removeItem('ecogalon_cart');
+    document.getElementById('cartList').innerHTML = '';
+    document.getElementById('cartTotal').textContent = 'Rp0';
+    document.getElementById('cartCount').textContent = '0';
+  
+    alert('Pesanan berhasil dikirim!');
+    document.getElementById('modalBackdrop').style.display = 'none';
+  });
+  
+
+
+
+<div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <h3>Form Pemesanan</h3>
+      <p class="small">Isi data pengiriman agar kami dapat memproses pesanan Anda.</p>
+      <label>Nama</label>
+      <input id="nama" type="text" placeholder="Nama lengkap">
+      <label>Telepon</label>
+      <input id="phoneInput" type="tel" placeholder="08xx...">
+      <label>Alamat</label>
+      <textarea id="Alamat" rows="3" placeholder="Alamat pengiriman"></textarea>
+      <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+        <button id="closeModal" class="btn ghost">Batal</button>
+        <button id="submitOrder" class="btn">Kirim Pesanan</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const pesanan = {
+    nama,
+    telepon,
+    alamat,
+    items: cartData,
+    totalHarga,
+    waktu: new Date().toLocaleString('id-ID')
+  };

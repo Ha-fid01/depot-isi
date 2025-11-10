@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="/galon cair.png">
+  <title>DEPOT ISI ULANG</title>
+  <meta name="description" content="Toko galon isi ulang — produk galon 19L, refill, layanan antar, dan informasi harga.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container top">
+      <div class="brand">
+        <div class="logo"><img src="galon cair.png" alt="logo"></div>
+        <div>
+          <h1>DEPOT ISI ULANG</h1>
+          <p class="lead">Air minum isi ulang 19L, galon baru & layanan antar ke rumah</p>
+        </div>
+      </div>
+      <div class="search">
+        <input id="searchInput" placeholder="Cari galon (contoh: Galon 19L)">
+      </div>
+      <div class="admin-user">
+      <div style="margin-left:12px">
+        <button id="openCartBtn" class="btn">Jumlah galon (<span id="cartCount">0</span>)</button>
+        <button id="openAdminBtn" class="btn ghost" style="margin-left:8px;">Admin</button>
+        <div id="userSection">
+          <button id="loginUserBtnOpen" class="btn">Login User</button> 
+        </div>              
+      </div>
+    </div>
+  </div>      
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>Produk Unggulan</h2>
+      <p class="small">Pilih galon isi ulang berkualitas — sanitasi terjaga, air mineral alami.</p>
+      <div class="grid" id="productsGrid">
+        <!-- product cards rendered by JS -->
+      </div>
+    </section>
+
+    <section style="margin-top:28px">
+      <div class="card">
+        <h3>Kenapa pilih Depot Isi Ulang?</h3>
+        <ul class="small">
+          <li>Proses sanitasi berkala dan pengisian higienis</li>
+          <li>Layanan antar-jemput galon kosong</li>
+          <li>Harga bersaing dan paket langganan</li>
+        </ul>
+        <div style="margin-top:12px">
+          <button id="orderNow" class="btn">Pesan Sekarang</button>
+          <button class="btn"><a href="https://wa.me/62895323107557">watshapp</a></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+<!-- ================== DASHBOARD USER ================== -->
+<section id="userDashboard" class="container" style="display:none; margin-top:40px;">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h3>🧾 Riwayat Pesanan Anda</h3>
+      <button id="hapusRiwayatBtn" style="background:#ef4444;color:white;padding:6px 12px;border:none;border-radius:6px;cursor:pointer;">
+        Hapus Riwayat
+      </button>
+    </div>
+    <p class="small">Berikut pesanan yang pernah Anda buat di Depot Isi Ulang.</p>
+    <div class="overflow-x-auto">
+      <table style="width:100%;border-collapse:collapse;margin-top:12px;">
+        <thead style="background:#cffafe;">
+          <tr>
+            <th style="padding:8px;border:1px solid #e2e8f0;">Tanggal</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;">Produk</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;">Jumlah</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;">Total</th>
+          </tr>
+        </thead>
+        <tbody id="userOrdersBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+  <div class="kelompok1">
+    <h1>Foto Kelompok</h1>
+    <div class="kelompok-container">
+      <div class="gambar"><img src="kelompok.jpeg" alt=""></div>
+    </div>
+    <div class="popup-image">
+      <span>&times;</span>
+      <img src="kelompok.jpeg" alt="">
+    </div>
+  </div>
+
+  <div class="cart" id="cartPanel" style="display:none">
+    <div class="panel">
+      <h3>Keranjang Anda</h3>
+      <div class="cart-list" id="cartList"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+        <div>
+          <div class="small">Total:</div>
+          <div id="cartTotal" style="font-weight:700">Rp0</div>
+        </div>
+        <div>
+          <button id="checkoutBtn" class="btn">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal order -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <h3>Form Pemesanan</h3>
+      <p class="small">Isi data pengiriman agar kami dapat memproses pesanan Anda.</p>
+  
+      <label>Nama</label>
+      <input id="nameInput" type="text" placeholder="Nama lengkap">
+  
+      <label>Telepon</label>
+      <input id="phoneInput" type="tel" placeholder="08xx...">
+  
+      <label>Alamat</label>
+      <textarea id="addressInput" rows="3" placeholder="Alamat pengiriman"></textarea>
+  
+      <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+        <button id="closeModal" class="btn ghost">Batal</button>
+        <button id="submitOrder" class="btn">Kirim Pesanan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Modal Login Admin ============ -->
+<div class="modal-backdrop" id="adminLoginModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Login Admin</h3>
+    <p class="small">Masukkan kredensial untuk membuka panel admin.</p>
+    <label>Username</label>
+    <input type="text" id="adminUser" placeholder="Username">
+    <label>Password</label>
+    <input type="password" id="adminPass" placeholder="Password">
+    <p id="loginError" style="color:red;font-size:13px;display:none;">Username atau password salah!</p>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="closeAdminLogin" class="btn ghost">Batal</button>
+      <button id="loginAdminBtn" class="btn">Masuk</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Modal Register User ============ -->
+<div class="modal-backdrop" id="registerModal" style="display:none;">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Daftar Akun</h3>
+    <p class="small">Buat akun baru untuk memesan galon dengan mudah.</p>
+    <label>Nama Lengkap</label>
+    <input type="text" id="regName" placeholder="Nama lengkap">
+    <label>Email</label>
+    <input type="email" id="regEmail" placeholder="Email">
+    <label>Password</label>
+    <input type="password" id="regPass" placeholder="Password">
+    <p id="regMsg" style="font-size:13px;color:red;display:none;">Email sudah terdaftar!</p>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="closeRegister" class="btn ghost">Batal</button>
+      <button id="submitRegister" class="btn">Daftar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Modal Login User ============ -->
+<div class="modal-backdrop" id="userLoginModal" style="display:none;">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Login Pengguna</h3>
+    <p class="small">Masuk dengan akun Anda untuk melanjutkan.</p>
+    <label>Email</label>
+    <input type="email" id="userLoginEmail" placeholder="Email">
+    <label>Password</label>
+    <input type="password" id="userLoginPass" placeholder="Password">
+    <p id="userLoginError" style="color:red;font-size:13px;display:none;">Email atau password salah!</p>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="closeUserLogin" class="btn ghost">Batal</button>
+      <button id="loginUserBtn" class="btn">Masuk</button>
+    </div>
+    <p class="small" style="margin-top:8px;">Belum punya akun? <a href="#" id="openRegisterLink" style="color:#0ea5a4;">Daftar di sini</a></p>
+  </div>
+</div>
+
+
+<!-- ============ Panel Admin ============ -->
+<div id="adminPanel" class="container" style="display:none; margin-top:40px;">
+  <div class="card">
+    <h3>📦 Ringkasan Pesanan Pelanggan</h3>
+    <div class="overflow-x-auto">
+      <table style="width:100%;border-collapse:collapse;margin-top:12px;">
+        <thead style="background:#cffafe;">
+          <tr>
+            <th style="padding:8px;border:1px solid #e2e8f0;text-align:left;">Nama Barang</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;text-align:center;">Jumlah</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;text-align:center;">Harga Satuan</th>
+            <th style="padding:8px;border:1px solid #e2e8f0;text-align:center;">Total Harga</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+        <tfoot style="background:#f1f5f9;">
+          <tr>
+            <td style="text-align:right;padding:8px;font-weight:600;border:1px solid #e2e8f0;" colspan="3">Total Barang Dibeli:</td>
+            <td id="adminTotalQty" style="text-align:center;padding:8px;font-weight:700;color:#0ea5a4;border:1px solid #e2e8f0;">0</td>
+          </tr>
+          <tr>
+            <td style="text-align:right;padding:8px;font-weight:600;border:1px solid #e2e8f0;" colspan="3">Total Harga Semua:</td>
+            <td id="adminTotalHarga" style="text-align:center;padding:8px;font-weight:700;color:#0ea5a4;border:1px solid #e2e8f0;">Rp0</td>
+          </tr>
+        </tfoot>
+      </table>
+      
+    </div>
+    <div style="text-align:right;margin-top:12px;">
+      <button id="logoutAdmin" class="btn ghost">Logout</button>
+      <button id="clearDataBtn" class="btn" style="background:#dc2626;">Hapus Data</button>
+      <button id="resetAllBtn" class="btn" style="background:#dc2626;">Reset Semua</button>
+    </div>
+  </div>
+  <div class="maps-container">
+    <h1>Cari Lokasi Pembeli</h1>
+    <div class="lokasi">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.0769613917387!2d105.31334811115109!3d-5.405247353979125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40dd006dcda131%3A0x593cd828fcae9d01!2sEka%20autocek!5e0!3m2!1sid!2sid!4v1761911544082!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" id="adminLoginModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Login Admin</h3>
+    <label>Username</label>
+    <input type="text" id="adminUser" placeholder="Username">
+    <label>Password</label>
+    <input type="password" id="adminPass" placeholder="Password">
+    <p id="loginError" style="color:red;font-size:13px;display:none;">Username atau password salah!</p>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="closeAdminLogin" class="btn ghost">Batal</button>
+      <button id="loginAdminBtn" class="btn">Masuk</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <footer class="container">
+    <hr>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <strong>Depot Isi Ulang</strong> Campang Raya Sukabumi Bandar Lampung 
+        <span class="small">☎ 0877-2867-3517</span>
+      </div>
+      <div class="small">© <span id="year"></span> Tugas Dasar-Dasar Pemrograman</div>
+    </div>
+  </footer>
+
+  <!-- Admin Dashboard -->
+<section id="adminPanel" class="container" style="display:none; margin-top:40px;">
+  <div class="card">
+    <h3>💰 Total Penjualan</h3>
+    <p class="small">Total harga semua pesanan dari pelanggan.</p>
+    <div id="totalSales" style="font-size:24px; font-weight:700; margin-top:10px;">Rp0</div>
+  </div>
+</section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
